@@ -1,0 +1,41 @@
+our_key_path: ~/.ssh/id_rsa.pub
+
+project_name: myproject 
+domain_name: myproject.com
+
+user: root
+port: 22
+deploy_user: my_user 
+
+workon_home: /home/web/.virtualenvs/
+virtual_env_name: myproject.com
+virtual_env_loc: /home/web/.virtualenvs/myproject.com
+
+repo_remote_location: https://github.com/samdolan/test.git
+repo_destination: /home/web/myproject.com
+requirements_file: /home/web/myproject.com/requirements.pip
+app_root: /home/web/myproject.com/myproject
+
+log_location: /var/log/myproject/
+socket_location: /var/run/myproject/
+wsgi_socket_location: /var/run/myproject/uwsgi.sock
+
+web_user: web
+web_home: /home/web/
+
+db_name: myuser 
+db_user: postgres
+db_pw:  thepassword 
+db_port: 5433
+db_backup_location: /var/local/myproject/db_backups/
+
+apps_to_migrate: 
+    - myapp1 
+
+servers:
+    dev:
+        web:
+            dev.web01: 127.0.0.1
+        db:
+            dev.db01: 127.0.0.1
+ 

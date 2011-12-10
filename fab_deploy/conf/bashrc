@@ -1,0 +1,5 @@
+if [ $USER == web ]; then
+    export WORKON_HOME=/home/web/.virtualenvs
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
