@@ -52,7 +52,7 @@ def update_db():
 
 
 @task
-@roles(ALL_ROLES)
+@roles(WEB_ROLE)
 def install_settings():
     from .servers import set_database_ip
     execute(set_database_ip)

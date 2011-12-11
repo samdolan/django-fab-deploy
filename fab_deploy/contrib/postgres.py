@@ -48,12 +48,11 @@ def install_postgres():
     from .servers import set_database_ip
     execute(set_database_ip)
 
-    if not package_exists('postgresql-9.1'):
-        sudo('add-apt-repository ppa:pitti/postgresql')
-        cuisine.package_install([
-            'python-software-properties', 'postgresql-9.1', 'postgresql-contrib-9.1',
-            'postgresql-server-dev-9.1', 'libpq-dev', 'libpq5'
-        ], update=True)
+    sudo('add-apt-repository ppa:pitti/postgresql')
+    cuisine.package_install([
+        'python-software-properties', 'postgresql-9.1', 'postgresql-contrib-9.1',
+        'postgresql-server-dev-9.1', 'libpq-dev', 'libpq5'
+    ], update=True)
 
     execute(update_db_conf)
     cuisine.user_ensure(env.db_user)

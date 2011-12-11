@@ -18,7 +18,7 @@ def install_nginx():
 
     # needed to compile uwsgi
     cuisine.package_ensure('libxml2-dev')
-    #pip('http://projects.unbit.it/downloads/uwsgi-latest.tar.gz')
+    pip('http://projects.unbit.it/downloads/uwsgi-latest.tar.gz')
 
     if exists('/etc/nginx/sites-enabled/default'):
         sudo('rm /etc/nginx/sites-enabled/default')

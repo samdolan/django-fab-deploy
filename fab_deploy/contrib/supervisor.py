@@ -12,6 +12,7 @@ def install_supervisor():
     # ubuntu 11.04 has a bad version
     pip('elementtree')
     cuisine.package_ensure('supervisor')
+    sudo('pkill supervisord')
     execute(stop_supervisor)
     execute(update_supervisor)
 

@@ -56,7 +56,7 @@ def setup_common():
     sudo('ufw default deny')
 
 @task
-@roles(ALL_ROLES)
+@roles(WEB_ROLE)
 def setup_run_dirs():
     for d in (env.log_location, env.socket_location):
         with settings(warn_only=True):
@@ -67,7 +67,6 @@ def setup_run_dirs():
 @task
 def setup():
     """Setup the servers."""
-    execute(setup_run_dirs)
     execute(setup_db)
     execute(setup_web)
 

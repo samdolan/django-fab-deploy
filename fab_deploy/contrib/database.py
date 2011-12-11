@@ -1,7 +1,7 @@
 from fabric.api import *
 from .constants import DB_ROLE
 from .postgres import install_postgres
-from .django import update_db, install_settings, setup_python_env, update_python_libs
+from .django import update_db, setup_python_env, update_python_libs
 from .git import get_source
 
 @task

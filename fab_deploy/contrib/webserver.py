@@ -14,10 +14,9 @@ def setup_web():
     from .servers import setup_common
     from .servers import setup_run_dirs
 
-    execute(setup_common)
-    cuisine.user_ensure(env.deploy_user, home=env.deploy_user_home,
-                        shell='/bin/bash')
-    execute(setup_repo_key)
+    #execute(setup_common)
+    from fabric.colors import yellow
+    print yellow("Setting up web user.")
 
     execute(get_source)
     execute(setup_python_env)
