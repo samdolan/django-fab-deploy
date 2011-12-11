@@ -69,6 +69,7 @@ def setup():
     """Setup the servers."""
     execute(setup_db)
     execute(setup_web)
+    execute(update)
 
 
 @task

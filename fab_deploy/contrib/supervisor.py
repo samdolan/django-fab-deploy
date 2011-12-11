@@ -12,7 +12,10 @@ def install_supervisor():
     # ubuntu 11.04 has a bad version
     pip('elementtree')
     cuisine.package_ensure('supervisor')
-    sudo('pkill supervisord')
+
+    # We want to use the /init.d/ scripts
+    with settings(warn_only=True):
+        sudo('pkill supervisord')
     execute(stop_supervisor)
     execute(update_supervisor)
 
@@ -46,7 +49,7 @@ def start_supervisor():
     """Start supervisor."""
     # Try to start if we're not already running, try to...
     with settings(warn_only=True):
-        sudo('/etc/init.d/supervisord start')
+        sudo('/etc/init.d/supervisor start')
     with settings(warn_only=True):
         sudo('supervisorctl reread')
     with settings(warn_only=True):
