@@ -22,7 +22,7 @@ def setup_ssh_key():
 @task
 @roles(WEB_ROLE)
 def setup_repo_key():
-    if getattr(env, 'repo_private_key') and getattr(env, 'repo_public_key'):
+    if env.get('repo_private_key') and env.get('repo_public_key'):
         ssh_dir = '%(deploy_user_home)s.ssh' % env
         with settings(warn_only=True):
             from .django import deploy_user

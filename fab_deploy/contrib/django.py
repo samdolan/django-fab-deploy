@@ -47,8 +47,7 @@ def update_db():
 
     with virtualenv():
         manage_py('syncdb --noinput')
-        for app in env.apps_to_migrate:
-            manage_py('migrate {0}'.format(app))
+        manage_py('migrate')
 
 
 @task
