@@ -28,9 +28,9 @@ def install_nginx():
 def update_nginx():
     """Update the nginx configuration files."""
     execute(stop_nginx)
-    upload_template(os.path.join(CONF_DIR, 'nginx', 'domain.conf'),
-                    '/etc/nginx/sites-enabled/%(domain_name)s' % env,
-                    context=env, backup=False, use_sudo=True)
+    upload_template('domain.conf', '/etc/nginx/sites-enabled/%(domain_name)s' % env,
+                template_dir=os.path.join(CONF_DIR, 'nginx'),
+                context={'env': env}, use_sudo=True, use_jinja=True, backup=False)
     execute(start_nginx)
 
 

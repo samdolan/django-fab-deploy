@@ -10,6 +10,7 @@ def set_group(group_name):
         db=group_config['servers'][DB_ROLE],
     )
     env.branch = group_config['branch']
+    env.subdomain = group_config.get('subdomain', 'www')
 
 
 def set_role_defs(web, db):
