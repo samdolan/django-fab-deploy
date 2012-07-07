@@ -35,6 +35,7 @@ def update_python_libs():
     # TODO: We shouldn't do this, but it fails on writing to
     # /home/%(user)s/.pip
     with settings(warn_only=True):
+        sudo('chown -R %(deploy_user)s: %(workon_home)s' % env)
         with virtualenv():
             deploy_user('pip install -r %(requirements_file)s' % env)
 
@@ -47,17 +48,32 @@ def update_db():
 
     with virtualenv():
         manage_py('syncdb --noinput')
-        manage_py('migrate')
+        manage_py('migrate --delete-ghost-migrations')
 
 
 @task
 @roles(WEB_ROLE)
 def install_settings():
-    from .servers import set_database_ip
-    execute(set_database_ip)
-    upload_template(os.path.join(CONF_DIR, 'settings', 'local_settings.py'),
-                    os.path.join(env.app_root, 'local_settings.py'),
-                    use_sudo=True, context=env)
+    if not env.db_ip:
+        raise Exception("The database IP must be set.")
+
+    extra_local_settings = env.get('base_settings', {})
+    extra_local_settings.update(env.active_group.get('local_settings', {}))
+
+    for k, v in extra_local_settings.items():
+        # wrap the values in quotes.
+        if isinstance(v, basestring):
+            extra_local_settings[k] = "'{0}'".format(v)
+
+    context = {
+        'env': env,
+        'extra_local_settings': extra_local_settings,
+    }
+    upload_template('local_settings.py', os.path.join(env.app_root, 'local_settings.py'),
+                    template_dir=os.path.join(CONF_DIR, 'settings'),
+                    use_sudo=True, context=context, use_jinja=True)
+
+
 
 @_contextmanager
 def virtualenv():
