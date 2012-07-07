@@ -24,3 +24,6 @@ def get_source():
             deploy_user('git clean -f -d' % env)
             deploy_user('git pull origin %(branch)s' % env)
 
+    deploy_user('git submodule init')
+    deploy_user('git submodule update')
+
